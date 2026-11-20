@@ -1,0 +1,101 @@
+{
+  "league": "Demo liga (izmišljeni podaci)",
+  "round": "12. kolo",
+  "dates": "21.–23. novembar",
+  "overview": "Kolo s dva jasna favorita kod kuće (Rheinau, Seestadt) i tri izjednačena meča. Najveća vrijednost je u tržištima golova, a ne u konačnim ishodima. Plan: jaka sigurica na alternativnim tržištima, dva value tipa i mali sistem s preokretima.",
+  "bankroll_note": "Raspoređeno 72% budžeta: vrijednosti ima, ali nije izražena u svim mečevima. Ostatak čuvaj za live ili sljedeće kolo.",
+  "matches": [
+    {
+      "id": "M1", "home": "FC Rheinau", "away": "SV Nordhafen", "kickoff": "sub 15:30",
+      "xg_home": 2.05, "xg_away": 0.85, "p_home": 0.63, "p_draw": 0.21, "p_away": 0.16, "p_over25": 0.58, "p_btts": 0.44,
+      "likely_score": "2:0", "confidence": 4,
+      "verdict": "Rheinau jasan favorit; Nordhafen bez prvog golmana i umoran od kupa.",
+      "key_factors": ["Rheinau doma 5-1-0, xG 2.1", "Nordhafen bez golmana br. 1", "Nordhafen igrao kup u srijedu"]
+    },
+    {
+      "id": "M2", "home": "Borussia Altdorf", "away": "VfB Steinfeld", "kickoff": "sub 18:30",
+      "xg_home": 1.25, "xg_away": 1.45, "p_home": 0.33, "p_draw": 0.29, "p_away": 0.38, "p_over25": 0.5, "p_btts": 0.55,
+      "likely_score": "1:1", "confidence": 3,
+      "verdict": "Tržište podcjenjuje Steinfeld u formi (5 utakmica bez poraza).",
+      "key_factors": ["Steinfeld W W D W W D", "Altdorf nestabilan doma"]
+    },
+    {
+      "id": "M3", "home": "TSV Bergheim", "away": "Union Elbtal", "kickoff": "ned 15:30",
+      "xg_home": 1.7, "xg_away": 1.1, "p_home": 0.51, "p_draw": 0.25, "p_away": 0.24, "p_over25": 0.55, "p_btts": 0.52,
+      "likely_score": "2:1", "confidence": 3,
+      "verdict": "Otvoren meč; 1+ gol na obje strane realan.",
+      "key_factors": ["O1.5 u 10/11 utakmica oba tima"]
+    },
+    {
+      "id": "M4", "home": "Eintracht Kronau", "away": "SC Waldbrunn", "kickoff": "ned 17:30",
+      "xg_home": 1.45, "xg_away": 1.35, "p_home": 0.38, "p_draw": 0.27, "p_away": 0.35, "p_over25": 0.54, "p_btts": 0.56,
+      "likely_score": "1:1", "confidence": 3,
+      "verdict": "Izjednačeno; GG je najbolja cijena.",
+      "key_factors": ["Kronau GG u 7 od 8", "obje odbrane propusne"]
+    },
+    {
+      "id": "M5", "home": "Fortuna Seestadt", "away": "1. FC Talheim", "kickoff": "ned 19:30",
+      "xg_home": 2.25, "xg_away": 0.7, "p_home": 0.69, "p_draw": 0.19, "p_away": 0.12, "p_over25": 0.57, "p_btts": 0.38,
+      "likely_score": "2:0", "confidence": 4,
+      "verdict": "Lider protiv predzadnjeg; gol domaćina gotovo siguran.",
+      "key_factors": ["Seestadt 1. mjesto", "Talheim 16. sa 8 bodova"]
+    },
+    {
+      "id": "M6", "home": "Viktoria Ostend", "away": "Hertha Moorbach", "kickoff": "pon 20:30",
+      "xg_home": 1.05, "xg_away": 0.95, "p_home": 0.36, "p_draw": 0.32, "p_away": 0.32, "p_over25": 0.38, "p_btts": 0.45,
+      "likely_score": "1:0", "confidence": 2,
+      "verdict": "Oprezan derbi dna tabele; manje golova.",
+      "key_factors": ["Ostend 0-2 u 7 od 11", "obje ekipe igraju na rezultat"]
+    }
+  ],
+  "tickets": [
+    {
+      "id": "T1", "name": "Sigurica", "strategy": "sigurica", "type": "kombinacija", "system_k": 0, "stake_pct": 35, "risk": "nizak",
+      "idea": "Tri najsigurnija tipa na alternativnim tržištima umjesto 1X2 — svaki iznad 80%.",
+      "picks": [
+        { "match_id": "M1", "match": "FC Rheinau – SV Nordhafen", "market": "Dupla šansa", "pick": "1X", "odds": 1.22, "odds_source": "kladionica", "prob": 0.84, "push_prob": 0, "stake_pct": 0, "reason": "Rheinau doma bez poraza, gost bez prvog golmana." },
+        { "match_id": "M3", "match": "TSV Bergheim – Union Elbtal", "market": "Ukupno golova", "pick": "Više 1.5", "odds": 1.25, "odds_source": "kladionica", "prob": 0.81, "push_prob": 0, "stake_pct": 0, "reason": "O1.5 u 10 od 11 utakmica oba tima." },
+        { "match_id": "M5", "match": "Fortuna Seestadt – 1. FC Talheim", "market": "Tim daje gol", "pick": "Domaćin daje gol", "odds": 1.18, "odds_source": "kladionica", "prob": 0.86, "push_prob": 0, "stake_pct": 0, "reason": "Lider s xG 2.25 protiv najslabije odbrane." }
+      ]
+    },
+    {
+      "id": "T2", "name": "Value", "strategy": "value", "type": "pojedinacno", "system_k": 0, "stake_pct": 14, "risk": "srednji",
+      "idea": "Najveća razlika između naše procjene i kvote — igra se pojedinačno.",
+      "picks": [
+        { "match_id": "M2", "match": "Borussia Altdorf – VfB Steinfeld", "market": "Konačan ishod", "pick": "2", "odds": 3.1, "odds_source": "kladionica", "prob": 0.36, "push_prob": 0, "stake_pct": 6, "reason": "Model daje 36%, kvota implicira 31%." },
+        { "match_id": "M4", "match": "Eintracht Kronau – SC Waldbrunn", "market": "Oba tima daju gol", "pick": "GG", "odds": 1.95, "odds_source": "kladionica", "prob": 0.56, "push_prob": 0, "stake_pct": 8, "reason": "GG u 7 od 8 Kronauovih utakmica." }
+      ]
+    },
+    {
+      "id": "T3", "name": "Mix", "strategy": "mix", "type": "kombinacija", "system_k": 0, "stake_pct": 12, "risk": "srednji",
+      "idea": "Kombinacija sigurnog i value tipa s povratom uloga na dvije noge.",
+      "picks": [
+        { "match_id": "M1", "match": "FC Rheinau – SV Nordhafen", "market": "Ishod bez remija", "pick": "1 (X = povrat)", "odds": 1.3, "odds_source": "procjena", "prob": 0.63, "push_prob": 0.21, "stake_pct": 0, "reason": "Remi vraća ulog." },
+        { "match_id": "M4", "match": "Eintracht Kronau – SC Waldbrunn", "market": "Oba tima daju gol", "pick": "GG", "odds": 1.95, "odds_source": "kladionica", "prob": 0.56, "push_prob": 0, "stake_pct": 0, "reason": "Najbolja cijena meča." },
+        { "match_id": "M6", "match": "Viktoria Ostend – Hertha Moorbach", "market": "Ukupno golova (azijski)", "pick": "Manje 3.0 (tačno 3 = povrat)", "odds": 1.72, "odds_source": "procjena", "prob": 0.62, "push_prob": 0.2, "stake_pct": 0, "reason": "Oprezan derbi dna, xG zbir 2.0." }
+      ]
+    },
+    {
+      "id": "T4", "name": "Ludi sistem 2/4", "strategy": "ludi_sistem", "type": "sistem", "system_k": 2, "stake_pct": 4, "risk": "ekstreman",
+      "idea": "Preokreti poluvrijeme/kraj gdje profili timova to podržavaju — mali ulog, velika kvota.",
+      "picks": [
+        { "match_id": "M2", "match": "Borussia Altdorf – VfB Steinfeld", "market": "Poluvrijeme/Kraj", "pick": "1/2", "odds": 21, "odds_source": "procjena", "prob": 0.055, "push_prob": 0, "stake_pct": 0, "reason": "Steinfeld jači u nastavcima." },
+        { "match_id": "M3", "match": "TSV Bergheim – Union Elbtal", "market": "Poluvrijeme/Kraj", "pick": "2/1", "odds": 17, "odds_source": "procjena", "prob": 0.065, "push_prob": 0, "stake_pct": 0, "reason": "Bergheim često gubi na poluvremenu pa okrene." },
+        { "match_id": "M5", "match": "Fortuna Seestadt – 1. FC Talheim", "market": "Poluvrijeme/Kraj", "pick": "X/1", "odds": 4.6, "odds_source": "procjena", "prob": 0.24, "push_prob": 0, "stake_pct": 0, "reason": "Seestadt sporo ulazi u utakmice." },
+        { "match_id": "M6", "match": "Viktoria Ostend – Hertha Moorbach", "market": "Poluvrijeme/Kraj", "pick": "X/2", "odds": 8.5, "odds_source": "procjena", "prob": 0.13, "push_prob": 0, "stake_pct": 0, "reason": "Zatvoreno prvo poluvrijeme, Moorbach opasan iz kontre." }
+      ]
+    },
+    {
+      "id": "T5", "name": "Forma & H2H", "strategy": "forma_h2h", "type": "kombinacija", "system_k": 0, "stake_pct": 7, "risk": "visok",
+      "idea": "Ono što forma i međusobni dueli govore da treba doći.",
+      "picks": [
+        { "match_id": "M3", "match": "TSV Bergheim – Union Elbtal", "market": "Konačan ishod", "pick": "1", "odds": 1.9, "odds_source": "kladionica", "prob": 0.55, "push_prob": 0, "stake_pct": 0, "reason": "Bergheim 4 pobjede u zadnjih 5 H2H doma." },
+        { "match_id": "M5", "match": "Fortuna Seestadt – 1. FC Talheim", "market": "Ukupno golova", "pick": "3+", "odds": 1.85, "odds_source": "kladionica", "prob": 0.57, "push_prob": 0, "stake_pct": 0, "reason": "Talheim primio 3+ u 6 od 11." }
+      ]
+    }
+  ],
+  "avoid": [
+    { "match": "Viktoria Ostend – Hertha Moorbach (1X2)", "reason": "Tri ishoda skoro jednako vjerovatna — bez vrijednosti u konačnom ishodu." }
+  ],
+  "warnings": ["DEMO: izmišljeni timovi i kvote — samo za prikaz aplikacije."]
+}

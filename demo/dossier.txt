@@ -1,0 +1,41 @@
+=== DOSIJE ===
+LIGA: Demo liga (IZMIŠLJENI PODACI) | KOLO: 12. kolo | DATUMI: 21.–22.11. | STATUS: OK
+IZVORI: demo
+---
+M1 | FC Rheinau – SV Nordhafen | sub 21.11. 15:30
+TABELA: Rheinau 2. (25 b, 11 ut, GR +14); Nordhafen 13. (11 b, GR -8). Rheinau kod kuće 5-1-0 (15:4); Nordhafen u gostima 1-1-4 (5:12)
+FORMA: Rheinau W W D W L W; Nordhafen L D L W L L
+GOLOVI/xG: Rheinau doma 2.5 dato / 0.7 primljeno, xG 2.1/0.9; Nordhafen gost 0.8/2.0, xG 0.9/1.8
+TENDENCIJE: Rheinau O2.5 64%, BTTS 45%; Nordhafen nije dao gol u 45% utakmica
+POLUVREMENA: Rheinau 40% golova u 1. pol.; Nordhafen primio 9 od 12 gostujućih golova u 2. pol.
+H2H: 2-0 (1-0), 1-1 (0-0), 3-1 (1-1), 2-2 (1-2), 1-0 (0-0)
+IZOSTANCI: Nordhafen bez prvog golmana (crveni karton)
+KONTEKST: Rheinau u borbi za vrh; Nordhafen igrao kup u srijedu
+KVOTE: 1.55 4.20 5.80 | 3+ 1.80 / 0-2 2.00 | GG 1.95 / NG 1.80
+---
+M2 | Borussia Altdorf – VfB Steinfeld | sub 18:30
+TABELA: Altdorf 9. (16 b); Steinfeld 4. (22 b)
+FORMA: Altdorf L W L D W L; Steinfeld W W D W W D
+KVOTE: 2.30 3.40 3.10 | 3+ 1.85 / 0-2 1.95
+---
+M3 | TSV Bergheim – Union Elbtal | ned 22.11. 15:30
+TABELA: Bergheim 6. (19 b); Elbtal 11. (13 b)
+FORMA: Bergheim W L W W D L; Elbtal D L W L D W
+TENDENCIJE: oba tima O1.5 u 10 od 11 utakmica
+KVOTE: 1.90 3.60 4.00 | 1+ (O1.5) 1.25
+---
+M4 | Eintracht Kronau – SC Waldbrunn | ned 17:30
+TABELA: Kronau 7. (18 b); Waldbrunn 8. (17 b)
+TENDENCIJE: GG u 7 od zadnjih 8 utakmica Kronaua
+KVOTE: 2.40 3.50 2.80 | GG 1.95
+---
+M5 | Fortuna Seestadt – 1. FC Talheim | ned 19:30
+TABELA: Seestadt 1. (27 b); Talheim 16. (8 b)
+KVOTE: 1.45 4.60 7.00 | domaćin daje gol 1.18 | 3+ 1.85
+---
+M6 | Viktoria Ostend – Hertha Moorbach | pon 23.11. 20:30
+TABELA: Ostend 12. (12 b); Moorbach 14. (10 b)
+TENDENCIJE: Ostend 0-2 u 7 od 11; derbi s puno opreza
+KVOTE: 2.60 3.10 2.90 | 0-2 1.62
+---
+NAPOMENE: demo dosije, služi samo za prikaz aplikacije.

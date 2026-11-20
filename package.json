@@ -1,0 +1,17 @@
+{
+  "name": "kolo-ai",
+  "version": "1.0.0",
+  "description": "AI analiza fudbalskog kola i strategija tiketa (Claude Opus 5.5)",
+  "type": "module",
+  "main": "server.js",
+  "private": true,
+  "engines": { "node": ">=20.12" },
+  "scripts": {
+    "start": "node server.js",
+    "demo": "DEMO=1 node server.js",
+    "test": "node test/calc.test.js && node test/claude.mock.test.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.10.0"
+  }
+}
