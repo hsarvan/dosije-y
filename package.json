@@ -5,11 +5,14 @@
   "type": "module",
   "main": "server.js",
   "private": true,
-  "engines": { "node": ">=20.12" },
+  "engines": {
+    "node": ">=20.12"
+  },
   "scripts": {
     "start": "node server.js",
     "demo": "DEMO=1 node server.js",
-    "test": "node test/calc.test.js && node test/claude.mock.test.js"
+    "test": "node test/calc.test.js && node test/claude.mock.test.js && node test/telegram.test.js",
+    "bot": "node bot.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.10.0"

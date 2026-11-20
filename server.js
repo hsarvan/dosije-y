@@ -4,19 +4,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { env, MODES, RISK_PROFILES, MODEL } from "./lib/config.js";
-import { research, analyze, friendlyError } from "./lib/claude.js";
-import { demoResearch, demoAnalyze } from "./lib/demo.js";
-import {
-  newId,
-  normalizeQuery,
-  saveAnalysis,
-  getAnalysis,
-  deleteAnalysis,
-  listAnalyses,
-  findFreshDossier,
-  recordSpend,
-  spendSummary,
-} from "./lib/store.js";
+import { runAnalysis, budgetBlocked } from "./lib/pipeline.js";
+import { newId, saveAnalysis, getAnalysis, deleteAnalysis, listAnalyses, spendSummary } from "./lib/store.js";
 import { planStats } from "./public/calc.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -58,62 +47,12 @@ function finishJob(job) {
 }
 
 async function runJob(job, opts) {
-  const { query, bankroll, currency, risk, mode, notes, refresh, sourceId } = opts;
-  const run = env.demo ? { research: demoResearch, analyze: demoAnalyze } : { research, analyze };
-  const signal = job.ac.signal;
-  const send = (ev) => emit(job, ev);
-  const a = {
-    id: newId(),
-    query,
-    queryKey: normalizeQuery(query),
-    createdAt: new Date().toISOString(),
-    mode,
-    bankroll,
-    currency,
-    risk,
-    notes,
-    demo: env.demo,
-    cost: { research: 0, analysis: 0 },
-    usage: {},
-    state: {},
-  };
-  job.analysisId = a.id;
   try {
-    // Faza 1 — istraživanje (ili ponovna upotreba svježeg dosijea = 0 troška)
-    const source = sourceId ? getAnalysis(sourceId) : refresh ? null : findFreshDossier(query, env.dossierTtlHours);
-    if (source?.dossier) {
-      a.dossier = source.dossier;
-      a.dossierAt = source.dossierAt || source.createdAt;
-      a.reusedFrom = source.id;
-      send({ type: "phase", phase: "research", status: "reused", at: a.dossierAt });
-    } else {
-      send({ type: "phase", phase: "research", status: "start", mode });
-      const r = await run.research({ query, mode, emit: send, signal });
-      a.dossier = r.dossier;
-      a.dossierAt = new Date().toISOString();
-      a.cost.research = r.cost;
-      a.usage.research = r.usage;
-      if (!env.demo) recordSpend({ phase: "research", cost: r.cost, query, analysisId: a.id, model: r.model });
-      send({ type: "phase", phase: "research", status: "done" });
-    }
-    saveAnalysis(a); // dosije je plaćen — čuvamo ga i ako faza 2 padne
-
-    // Faza 2 — analiza i tiketi
-    send({ type: "phase", phase: "analysis", status: "start", mode });
-    const r2 = await run.analyze({ query, dossier: a.dossier, bankroll, currency, risk, notes, mode, emit: send, signal });
-    a.plan = r2.plan;
-    a.model = r2.model;
-    a.cost.analysis = r2.cost;
-    a.usage.analysis = r2.usage;
-    if (!env.demo) recordSpend({ phase: "analysis", cost: r2.cost, query, analysisId: a.id, model: r2.model });
-    saveAnalysis(a);
-    send({ type: "done", analysisId: a.id });
+    const a = await runAnalysis({ ...opts, source: "web" }, { emit: (ev) => emit(job, ev), signal: job.ac.signal });
+    emit(job, { type: "done", analysisId: a.id });
   } catch (e) {
-    if (e?.cost && !env.demo) recordSpend({ phase: "failed", cost: e.cost, query, analysisId: a.id });
-    a.error = friendlyError(e);
-    if (a.dossier) saveAnalysis(a);
-    send({ type: "error", message: a.error, analysisId: a.dossier ? a.id : null });
-    if (!(e?.name === "AbortError" || e?.constructor?.name === "APIUserAbortError")) console.error(e);
+    emit(job, { type: "error", message: e.friendly || String(e.message), analysisId: e.analysis?.id || null });
+    if (!/prekinut/i.test(e.friendly || "")) console.error(e.cause || e);
   } finally {
     finishJob(job);
   }
@@ -152,14 +91,6 @@ function parseRunOptions(body) {
   const mode = MODES[body.mode] ? body.mode : "ultra";
   const notes = String(body.notes || "").slice(0, 500);
   return { query, bankroll, currency, risk, mode, notes };
-}
-
-function budgetBlocked() {
-  if (env.demo || !env.monthlyBudget) return null;
-  const s = spendSummary();
-  if (s.month >= env.monthlyBudget)
-    return `Mjesečni budžet za AI ($${env.monthlyBudget}) je potrošen ($${s.month.toFixed(2)}). Povećaj MONTHLY_BUDGET_USD u .env.`;
-  return null;
 }
 
 function startJob(res, opts) {

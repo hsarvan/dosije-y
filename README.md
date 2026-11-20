@@ -13,6 +13,29 @@ Upišeš ligu („Bundesliga ovaj vikend“, „La Liga 14. kolo“, „Premijer
 
 Jedini cilj je zarada na duže staze: app traži tipove s pozitivnom očekivanom vrijednošću i kaže kad vrijednosti nema (tada predloži manji ulog). Siguran tiket ne postoji.
 
+## Telegram bot (sve s mobitela)
+
+Pošalješ botu `Analiza Bundesliga 1`, a on ti vrati analizu i tikete s parovima, kvotama i ulozima. Bot radi na GitHub Actions u ovom repozitoriju (javni repo = besplatno), pa ne treba ni server ni računar.
+
+**Jednokratno podešavanje:**
+1. **Telegram bot:** otvori @BotFather → `/newbot` → ime (npr. Kolo) → korisničko ime koje završava na `bot`. Kopiraj token koji dobiješ.
+2. **Claude API ključ:** platform.claude.com → *API Keys* → *Create Key* i kopiraj ga. Pod *Billing* dodaj kredit (API se plaća odvojeno od Claude pretplate).
+3. **GitHub:** u browseru otvori `hsarvan/dosije-y` → *Settings* → *Secrets and variables* → *Actions* → *New repository secret* i dodaj:
+   - `TELEGRAM_BOT_TOKEN` = token iz koraka 1
+   - `ANTHROPIC_API_KEY` = ključ iz koraka 2
+4. U Telegramu otvori svog bota i pošalji `/start`. Prvi chat koji se javi postaje vlasnik; drugima bot ne odgovara.
+
+**Poruke:**
+- `Analiza Bundesliga 1` · `Analiza La Liga 14. kolo` · `Analiza Premijer liga BiH`
+- dodaci u istoj poruci: `standard` (jeftinije) ili `ultra`, `oprezno` / `agresivno`, iznos s valutom (`50 KM`, `20 €`)
+- `Potrošnja` (AI trošak ovaj mjesec) · `pomoć`
+
+Bot provjerava poruke svakih ~5 minuta (GitHub ponekad kasni), a analiza traje 3–10 min, pa odgovor stiže za ~10–25 min. Ako želiš odmah: *Actions* → *Telegram bot* → *Run workflow*.
+
+Opcione varijable (*Settings → Secrets and variables → Actions → Variables*): `MONTHLY_BUDGET_USD` (zadano 30), `BOT_MODE` (`ultra`/`standard`, zadano ultra), `BOT_RISK`, `BOT_BANKROLL` (zadano 100), `BOT_CURRENCY` (zadano KM). Opcioni secret `TELEGRAM_CHAT_ID` zaključava bota na tačno taj chat.
+
+Napomene: historija i potrošnja bota čuvaju se u GitHub Actions kešu, ne u (javnom) repozitoriju. GitHub pauzira zakazane workflowe u javnom repou nakon 60 dana bez commita; tada ga ponovo uključiš u *Actions*. Isti bot može raditi i stalno na bilo kom računaru/serveru: `npm run bot` (uz `.env`).
+
 ## Pokretanje
 
 Potreban je Node.js 20.12+ i Claude API ključ (https://platform.claude.com).
@@ -49,6 +72,7 @@ Okvirno: Standard ≈ $0.5–1.5, Ultra ≈ $1.5–4 po kolu (zavisi od broja me
 
 ## Tehnički
 
+- `bot.js` — Telegram bot (`--once` za GitHub Actions); `lib/telegram.js` — poruke i formatiranje; `lib/pipeline.js` — zajednička analiza.
 - `server.js` — HTTP server, poslovi s praćenjem napretka (SSE; analiza nastavlja i ako zatvoriš browser), historija u `data/`.
 - `lib/claude.js` — Claude API: faza 1 `web_search_20260209` + `web_fetch_20260209` (nastavak nakon `pause_turn`), faza 2 structured output (JSON shema u `lib/schema.js`), adaptivno razmišljanje, server-side fallback.
 - `lib/prompts.js` — instrukcije za istraživanje i strategiju.

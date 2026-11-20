@@ -1,0 +1,57 @@
+# Telegram bot: svakih ~5 min pročita nove poruke i odgovori analizom kola.
+# Treba GitHub secrets: TELEGRAM_BOT_TOKEN i ANTHROPIC_API_KEY (opciono TELEGRAM_CHAT_ID).
+# Opcione varijable (Settings → Secrets and variables → Actions → Variables):
+#   MONTHLY_BUDGET_USD (zadano 30), BOT_MODE (ultra|standard), BOT_RISK, BOT_BANKROLL, BOT_CURRENCY
+# Napomena: izmjenu termina (cron) mora potpisati vlasnik repozitorija, inače GitHub ne pokreće raspored.
+name: Telegram bot
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: telegram-bot
+  cancel-in-progress: false
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      # data/ (historija, potrošnja, vlasnik bota) se čuva između pokretanja u kešu, ne u repozitoriju
+      - uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: kolo-data-${{ github.run_id }}
+          restore-keys: kolo-data-
+
+      - id: bot
+        run: node bot.js --once
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MONTHLY_BUDGET_USD: ${{ vars.MONTHLY_BUDGET_USD || '30' }}
+          BOT_MODE: ${{ vars.BOT_MODE }}
+          BOT_RISK: ${{ vars.BOT_RISK }}
+          BOT_BANKROLL: ${{ vars.BOT_BANKROLL }}
+          BOT_CURRENCY: ${{ vars.BOT_CURRENCY }}
+
+      - if: always() && steps.bot.outputs.changed == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: kolo-data-${{ github.run_id }}
